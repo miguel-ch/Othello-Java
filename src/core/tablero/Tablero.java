@@ -1,15 +1,14 @@
 package core.tablero;
 
 import core.fichas.Ficha;
-import core.man.ManFichas;
-import core.man.ManMovimientos;
-import core.man.Movimiento;
 
 public class Tablero {
 
 	// Global
 	public static final int FILAS_TABLERO = 8;
 	public static final int COLUMNAS_TABLERO = 8;
+	
+	public static final int TAMANO_TABLERO = 8;
 
 	// Atributos
 	private final Ficha fichas[][];
@@ -28,6 +27,10 @@ public class Tablero {
 	}
 	
 	public boolean hayFicha(int fila, int columna) {
-		return fichas[fila][columna] == null;
+		return fichas[fila][columna] != null;
+	}
+	
+	public Ficha obtenerFicha(int fila, int columna) {
+		return fichas[fila][columna];
 	}
 }

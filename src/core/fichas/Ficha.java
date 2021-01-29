@@ -15,5 +15,9 @@ public abstract class Ficha implements Cloneable {
 		return color;
 	}
 	
+	public boolean equals(Ficha f) {
+		return f.color == color;
+	}
+	
 	public abstract Ficha clone();
 }
