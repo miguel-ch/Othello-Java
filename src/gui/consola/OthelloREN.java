@@ -6,13 +6,13 @@ public class OthelloREN {
 
 	public void imprimirTablero(Tablero t) {
 
-		System.out.println("    0   1   2   3   4   5   6   7");
+		System.out.println("    1   2   3   4   5   6   7   8");
 		System.out.println("  +---+---+---+---+---+---+---+---+");
-		for (int i = 0; i < Tablero.TAMANO_TABLERO; i++) {
+		for (int i = Tablero.INICIO_TABLERO; i <= Tablero.FINAL_TABLERO; i++) {
+	
+			for (int j = Tablero.INICIO_TABLERO; j <= Tablero.FINAL_TABLERO; j++) {
 
-			for (int j = 0; j < Tablero.TAMANO_TABLERO; j++) {
-
-				if (j == 0) {
+				if (j == Tablero.INICIO_TABLERO) {
 					System.out.print(i + " | ");
 				}
 

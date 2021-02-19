@@ -1,108 +1,98 @@
 package core.man;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import core.fichas.Ficha;
+import core.man.cursor.Cursor;
+import core.man.cursor.Direccion;
 import core.tablero.Tablero;
+import core.tableroOLD.TableroOLD;
 
 public class ManMovimientos {
 
 	// Referencia al tablero en uso
-	private final Tablero tab;
+	private final Tablero tablero;
 
 	// Constructor
 	public ManMovimientos(Tablero t) {
-		this.tab = t;
+		this.tablero = t;
 	}
 
-	public int[][] checkMovements(Ficha ficha) {
+	public List<Coordenadas> movimientosPosibles(Ficha ficha) {
 
-		int[][] moves = null;
-		ArrayList<Cursor> finalm = new ArrayList<>();
+		List<Coordenadas> movsPosibles = new ArrayList<>();
 
-		for (int i = 0; i < Tablero.TAMANO_TABLERO; i++) {
+		// Recorre todo el tablero para buscar la ficha
+		for (int i = 0; i < TableroOLD.TAMANO_TABLERO; i++) {
+			for (int j = 0; j < TableroOLD.TAMANO_TABLERO; j++) {
 
-			for (int j = 0; j < Tablero.TAMANO_TABLERO; j++) {
-
-				if (tab.hayFicha(i, j) && ficha.equals(tab.obtenerFicha(i, j))) {
-					finalm.addAll(validMovs(ficha, i, j));
+				// Verifica la celda del tablero para ver si hay ficha y esta corresponde a la
+				// que se busca, despues busca posibles moviminetos
+				if (tablero.hayFicha(i, j) && ficha.equals(tablero.obtenerFicha(i, j))) {
+					movsPosibles.addAll(validarMovimientos(ficha, i, j));
 				}
 			}
 		}
-
-		if (finalm.size() > 0) {
-			moves = new int[finalm.size()][2];
-			for (int i = 0; i < finalm.size(); i++) {
-				moves[i][0] = finalm.get(i).getY();
-				moves[i][1] = finalm.get(i).getX();
-			}
-		}
-		return moves;
+		return movsPosibles;
 	}
 
-	private ArrayList<Cursor> validMovs(Ficha f, int fila, int col) {
+	private List<Coordenadas> validarMovimientos(Ficha f, int fila, int col) {
 
-		System.out.println("\nFICHA PARA: " + f.getColor() + " [" + fila + ", " + col + "]");
-		ArrayList<Cursor> mov = new ArrayList<>();
+		List<Coordenadas> ubicacionesPosibles = new ArrayList<>();
 		int celda = 0; // Identificador para la celda del tablero (1-9) en la cuadricula 9x9
-		int iCol = col - 1 <= 0 ? col : col - 1;
-		int lCol = col + 1 >= Tablero.TAMANO_TABLERO ? col : col + 1;
-		int iFila = fila - 1 <= 0 ? fila : fila - 1;
-		int lFila = fila + 1 >= Tablero.TAMANO_TABLERO ? fila : fila + 1;
-
-		System.out.println("Col - [" + iCol + ", " + lCol + "]");
-		System.out.println("Fila - [" + iFila + ", " + lFila + "]\n");
 
 		// Recorre las casillas que rodean la ficha
-		for (int i = iFila; i <= lFila; i++) {
-			for (int j = iCol; j <= lCol; j++) {
+		for (int i = fila - 1; i <= fila + 1; i++) {
+			for (int j = col - 1; j <= col + 1; j++) {
 
-				// Realiza el incremento de la celda
+				// Lleva el registro de la celda que se esta verificando
 				celda++;
 
-				// Salta en caso de que sea la casilla central
-				if (i == fila && j == col) {
+				// Salta la casilla del centro (Es la ficha que se esta verificando)
+				if (i == fila && j == col)
 					continue;
-				}
-
-				//System.out.println("Recorriendo - " + "[" + i + ", " + j + "] - Celda: " + celda);
 
 				// Si encuentra una ficha opuesta empieza a buscar el espacio libre en esa
 				// direccion
-				if (tab.hayFicha(i, j) && !tab.obtenerFicha(i, j).equals(f)) {
-					Cursor cur = new Cursor(i, j, Direccion.convertirDireccion(celda));
-					cur = checkFlank(f, cur);
-					if (cur != null) {
-						mov.add(cur);
+				if (tablero.hayFicha(i, j) && !tablero.obtenerFicha(i, j).equals(f)) {
+
+					Cursor cursor = new Cursor(i, j, Tablero.INICIO_TABLERO, Tablero.FINAL_TABLERO,
+							Direccion.convertirDireccion(celda));
+					Coordenadas coords = buscarEspacio(f, cursor);
+
+					// Si las coordenadas existen las añade a la lista
+					if (coords != null) {
+						ubicacionesPosibles.add(new Coordenadas(cursor.getFila(), cursor.getColumna()));
 					}
 				}
 			}
 		}
-		System.out.println();
-		return mov;
+		return ubicacionesPosibles;
 	}
 
 	// Verifica si un grupo de fichas es flan
-	public Cursor checkFlank(Ficha f, Cursor cur) {
+	private Coordenadas buscarEspacio(Ficha f, Cursor cur) {
 
 		boolean hayFichaOpuesta = false;
 
-		// Sigue aumentando en la direccion hasta que exista una ficha o espacio vacio
-		while (tab.hayFicha(cur.getY(), cur.getX()) && cur.getDir() != Direccion.CENTRO) {
+		// Sigue aumentando en la direccion hasta enceuntre un limite (Ficha, espacio
+		// vacio o borde)
+		while (tablero.hayFicha(cur.getFila(), cur.getColumna()) && cur.getDireccion() != Direccion.CENTRO
+				&& !hayFichaOpuesta) {
 
-			// Incrementa y verifica que no exista una ficha opuesta
-			cur.incrementar(Tablero.TAMANO_TABLERO);
-			
-			
-			if (tab.hayFicha(cur.getY(), cur.getX())) {
-				hayFichaOpuesta = !tab.obtenerFicha(cur.getY(), cur.getX()).equals(f);
+			// Verifica que no exista una ficha del mismo valor e incrementa el cursor
+			if (tablero.hayFicha(cur.getFila(), cur.getColumna())
+					&& tablero.obtenerFicha(cur.getFila(), cur.getColumna()).equals(f)) {
+				hayFichaOpuesta = true;
 			}
-			System.out.println("Cur coords ["+cur.getY()+", "+cur.getX()+"] " + cur.getDir());
+			cur.incrementar();
 		}
 
-		// Si no paro en un limite del tablero o si no
-		if (cur.getDir() != Direccion.CENTRO || !hayFichaOpuesta) {
-			return cur;
+		// Si no paro en un limite del tablero o encontro la misma ficha crea las
+		// coordenadas
+		if (cur.getDireccion() != Direccion.CENTRO && !hayFichaOpuesta) {
+			return new Coordenadas(cur.getFila(), cur.getColumna());
 		}
 		return null;
 	}

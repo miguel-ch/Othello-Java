@@ -5,24 +5,21 @@ import core.fichas.Ficha;
 public class Tablero {
 
 	// Global
-	public static final int FILAS_TABLERO = 8;
-	public static final int COLUMNAS_TABLERO = 8;
+	public static final int TAMANO_TABLERO = 10;
 	
-	public static final int TAMANO_TABLERO = 8;
+	public static final int INICIO_TABLERO = 1;
+	public static final int FINAL_TABLERO = 8;
 
 	// Atributos
 	private final Ficha fichas[][];
 
 	public Tablero() {
-		this.fichas = new Ficha[FILAS_TABLERO][COLUMNAS_TABLERO];
+		this.fichas = new Ficha[TAMANO_TABLERO][TAMANO_TABLERO];
 	}
 
 	public void asignarFicha(Ficha ficha, int fila, int columna) {
-		try {
+		if(fila >= INICIO_TABLERO && fila <= FINAL_TABLERO && columna >= INICIO_TABLERO && columna <= FINAL_TABLERO) {
 			fichas[fila][columna] = ficha;
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Ocurrio un error al asignar una ficha en [" + fila + "][" + columna + "].\n");
 		}
 	}
 	

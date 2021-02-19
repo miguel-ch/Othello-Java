@@ -13,6 +13,6 @@ public class Main {
 		System.out.println("Othello N1\n");
 		
 		p.imprimirTablero(ot.getTablero());
-		ot.pa();
+		ot.tests();
 	}
 }

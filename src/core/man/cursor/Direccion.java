@@ -1,4 +1,4 @@
-package core.man;
+package core.man.cursor;
 
 public enum Direccion {
 
@@ -11,37 +11,37 @@ public enum Direccion {
 		// |4|5|6|
 		// |7|8|9|
 
-		Direccion dir = CENTRO;
+		Direccion direccion = CENTRO;
 
 		switch (celda) {
 		case 1:
-			dir = DIAGONAL_IZQUIERDA_ARRIBA;
+			direccion = DIAGONAL_IZQUIERDA_ARRIBA;
 			break;
 		case 2:
-			dir = ARRIBA;
+			direccion = ARRIBA;
 			break;
 		case 3:
-			dir = DIAGONAL_DERECHA_ARRIBA;
+			direccion = DIAGONAL_DERECHA_ARRIBA;
 			break;
 		case 4:
-			dir = IZQUIERDA;
+			direccion = IZQUIERDA;
 			break;
 		case 5:
-			dir = CENTRO;
+			direccion = CENTRO;
 			break;
 		case 6:
-			dir = DERECHA;
+			direccion = DERECHA;
 			break;
 		case 7:
-			dir = DIAGONAL_IZQUIERDA_ABAJO;
+			direccion = DIAGONAL_IZQUIERDA_ABAJO;
 			break;
 		case 8:
-			dir = ABAJO;
+			direccion = ABAJO;
 			break;
 		case 9:
-			dir = DIAGONAL_DERECHA_ABAJO;
+			direccion = DIAGONAL_DERECHA_ABAJO;
 			break;
 		}
-		return dir;
+		return direccion;
 	}
 }
