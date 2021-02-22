@@ -4,9 +4,7 @@ import core.fichas.Ficha;
 
 public class Persona extends Jugador{
 
-	public Persona(Ficha ficha) {
-		super(ficha);
-		// TODO Auto-generated constructor stub
+	public Persona(String nombre, Ficha ficha) {
+		super(nombre, ficha);
 	}
-
 }

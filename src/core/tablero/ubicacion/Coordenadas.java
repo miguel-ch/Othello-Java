@@ -1,4 +1,4 @@
-package core.man;
+package core.tablero.ubicacion;
 
 public class Coordenadas {
 

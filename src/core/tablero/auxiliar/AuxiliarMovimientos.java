@@ -1,21 +1,21 @@
-package core.man;
+package core.tablero.auxiliar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import core.fichas.Ficha;
-import core.man.cursor.Cursor;
-import core.man.cursor.Direccion;
 import core.tablero.Tablero;
-import core.tableroOLD.TableroOLD;
+import core.tablero.auxiliar.direccion.Cursor;
+import core.tablero.auxiliar.direccion.CursorDireccion;
+import core.tablero.ubicacion.Coordenadas;
 
-public class ManMovimientos {
+public class AuxiliarMovimientos {
 
 	// Referencia al tablero en uso
 	private final Tablero tablero;
 
 	// Constructor
-	public ManMovimientos(Tablero t) {
+	public AuxiliarMovimientos(Tablero t) {
 		this.tablero = t;
 	}
 
@@ -24,8 +24,8 @@ public class ManMovimientos {
 		List<Coordenadas> movsPosibles = new ArrayList<>();
 
 		// Recorre todo el tablero para buscar la ficha
-		for (int i = 0; i < TableroOLD.TAMANO_TABLERO; i++) {
-			for (int j = 0; j < TableroOLD.TAMANO_TABLERO; j++) {
+		for (int i = 0; i < Tablero.TAMANO_TABLERO; i++) {
+			for (int j = 0; j < Tablero.TAMANO_TABLERO; j++) {
 
 				// Verifica la celda del tablero para ver si hay ficha y esta corresponde a la
 				// que se busca, despues busca posibles moviminetos
@@ -58,7 +58,7 @@ public class ManMovimientos {
 				if (tablero.hayFicha(i, j) && !tablero.obtenerFicha(i, j).equals(f)) {
 
 					Cursor cursor = new Cursor(i, j, Tablero.INICIO_TABLERO, Tablero.FINAL_TABLERO,
-							Direccion.convertirDireccion(celda));
+							CursorDireccion.convertirDireccion(celda));
 					Coordenadas coords = buscarEspacio(f, cursor);
 
 					// Si las coordenadas existen las añade a la lista
@@ -78,7 +78,7 @@ public class ManMovimientos {
 
 		// Sigue aumentando en la direccion hasta enceuntre un limite (Ficha, espacio
 		// vacio o borde)
-		while (tablero.hayFicha(cur.getFila(), cur.getColumna()) && cur.getDireccion() != Direccion.CENTRO
+		while (tablero.hayFicha(cur.getFila(), cur.getColumna()) && cur.getDireccion() != CursorDireccion.CENTRO
 				&& !hayFichaOpuesta) {
 
 			// Verifica que no exista una ficha del mismo valor e incrementa el cursor
@@ -91,7 +91,7 @@ public class ManMovimientos {
 
 		// Si no paro en un limite del tablero o encontro la misma ficha crea las
 		// coordenadas
-		if (cur.getDireccion() != Direccion.CENTRO && !hayFichaOpuesta) {
+		if (cur.getDireccion() != CursorDireccion.CENTRO && !hayFichaOpuesta) {
 			return new Coordenadas(cur.getFila(), cur.getColumna());
 		}
 		return null;

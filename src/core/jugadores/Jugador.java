@@ -12,7 +12,8 @@ public abstract class Jugador {
 	private int puntaje;
 
 	// Constructor
-	public Jugador(Ficha ficha) {
+	public Jugador(String nombre, Ficha ficha) {
+		this.nombre = nombre;
 		this.ficha = ficha;
 		this.fichasEnTablero = 0;
 		this.movsRealizados = 0;
@@ -23,6 +24,12 @@ public abstract class Jugador {
 	public void sumaFichas(int fichas) {
 		if (fichas > 0) {
 			this.fichasEnTablero += fichas;
+		}
+	}
+	
+	public void restarFichas(int fichas) {
+		if(fichas > 0) {
+			this.fichasEnTablero -= fichas;
 		}
 	}
 
@@ -40,7 +47,7 @@ public abstract class Jugador {
 		}
 	}
 	
-	public Ficha nuevaFicha() {
+	public Ficha fichaJugador() {
 		return ficha.clone();
 	}
 

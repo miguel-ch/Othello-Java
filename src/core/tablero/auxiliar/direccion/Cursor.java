@@ -1,4 +1,4 @@
-package core.man.cursor;
+package core.tablero.auxiliar.direccion;
 
 public class Cursor {
 
@@ -9,10 +9,10 @@ public class Cursor {
 	private int limInferior = 0;
 	private int limSuperior = 0;
 
-	private Direccion direccion = Direccion.CENTRO;
+	private CursorDireccion direccion = CursorDireccion.CENTRO;
 
 	// Constructor
-	public Cursor(int fila, int columna, int limiteInferior, int limiteSuperior, Direccion direccion) {
+	public Cursor(int fila, int columna, int limiteInferior, int limiteSuperior, CursorDireccion direccion) {
 		this.fila = fila;
 		this.columna = columna;
 		this.limInferior = limiteInferior;
@@ -65,7 +65,7 @@ public class Cursor {
 		if (nuevaColumna > limSuperior || nuevaFila > limSuperior || nuevaColumna < limInferior || nuevaFila < limInferior) {
 			nuevaFila = fila;
 			nuevaColumna = columna;
-			direccion = Direccion.CENTRO;
+			direccion = CursorDireccion.CENTRO;
 		}
 
 		// Reemplaza las coordenadas con las nuevas
@@ -82,7 +82,7 @@ public class Cursor {
 		return columna;
 	}
 
-	public Direccion getDireccion() {
+	public CursorDireccion getDireccion() {
 		return direccion;
 	}
 }

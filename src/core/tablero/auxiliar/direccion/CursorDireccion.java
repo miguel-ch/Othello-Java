@@ -1,17 +1,17 @@
-package core.man.cursor;
+package core.tablero.auxiliar.direccion;
 
-public enum Direccion {
+public enum CursorDireccion {
 
 	CENTRO, ARRIBA, DERECHA, ABAJO, IZQUIERDA, DIAGONAL_IZQUIERDA_ARRIBA, DIAGONAL_IZQUIERDA_ABAJO,
 	DIAGONAL_DERECHA_ARRIBA, DIAGONAL_DERECHA_ABAJO;
 
-	public static Direccion convertirDireccion(int celda) {
+	public static CursorDireccion convertirDireccion(int celda) {
 		// Direccion dependiendo de la cuadricula 9x9
 		// |1|2|3|
 		// |4|5|6|
 		// |7|8|9|
 
-		Direccion direccion = CENTRO;
+		CursorDireccion direccion = CENTRO;
 
 		switch (celda) {
 		case 1:

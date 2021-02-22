@@ -1,17 +1,17 @@
 package core.fichas;
 
-public abstract class Ficha implements Cloneable {
+public class Ficha implements Cloneable {
 	
 	//Atributos
-	private final String color;
+	private final FichaColor color;
 	
 	//Constructor
-	public Ficha(String color) {
+	public Ficha(FichaColor color) {
 		this.color = color;
 	}
 	
 	//Getter
-	public String getColor() {
+	public FichaColor getColor() {
 		return color;
 	}
 	
@@ -19,5 +19,8 @@ public abstract class Ficha implements Cloneable {
 		return f.color == color;
 	}
 	
-	public abstract Ficha clone();
+	@Override
+	public Ficha clone() {
+		return new Ficha(color);
+	}
 }
