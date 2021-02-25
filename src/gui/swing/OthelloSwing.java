@@ -23,6 +23,7 @@ public class OthelloSwing extends JFrame implements GUI {
 	
 	private void iniciarComponentes() {
 		setTitle("Othello");
+		setResizable(false);
         setPreferredSize(new Dimension(480, 662));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBackground(Color.red);

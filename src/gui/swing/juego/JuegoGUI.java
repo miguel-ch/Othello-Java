@@ -59,7 +59,7 @@ public class JuegoGUI extends GUIJuego {
 
 		// Verifica que el juego no haya terminado
 		if (juego.getEstado() == OthelloEstado.TERMINO) {
-			terminarJuego(false);	
+			terminarJuego(false);
 		} else {
 
 			// Verifica que el posible jugador tenga movimientos
@@ -127,14 +127,6 @@ public class JuegoGUI extends GUIJuego {
 		if (juego.colocarFichaJugadorActual(fila + 1, columna + 1)) {
 			juego.cambiarJugador();
 			actualizarJuego();
-			// MAQUINA
-			/*
-			 * Jugador tmp = juego.getJugadorActual(); if (tmp instanceof Maquina) {
-			 * 
-			 * //tablero.actualizar(); try { Thread.sleep(2000); } catch
-			 * (InterruptedException e) { e.printStackTrace(); } juego.cambiarJugador();
-			 * actualizarJuego(); }
-			 */
 		}
 	}
 }

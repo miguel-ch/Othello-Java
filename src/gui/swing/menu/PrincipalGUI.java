@@ -35,17 +35,16 @@ public class PrincipalGUI extends GUIPrincipal {
 
 	@Override
 	public void cargar() {
-		// ventana.removeAll();
 		ventana.getContentPane().removeAll();
 		ventana.getContentPane().add(panel);
 		ventana.getContentPane().revalidate();
 		ventana.getContentPane().repaint();
 		ventana.pack();
 		ventana.setVisible(true);
+		ventana.setLocationRelativeTo(null);
 	}
 
 	public void cargarPanel(JPanel panel) {
-		// ventana.removeAll();
 		ventana.getContentPane().removeAll();
 		ventana.getContentPane().add(panel);
 		ventana.getContentPane().revalidate();
