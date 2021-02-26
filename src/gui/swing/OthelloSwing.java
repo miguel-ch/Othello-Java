@@ -23,11 +23,8 @@ public class OthelloSwing extends JFrame implements GUI {
 	
 	private void iniciarComponentes() {
 		setTitle("Othello");
-		
-		ImageIcon ico = new ImageIcon(getClass().getResource("/Othello.png"));
-		
 		setResizable(false);
-		setIconImage(ico.getImage());
+		setIconImage(new ImageIcon(getClass().getResource("/Othello.png")).getImage());
         setPreferredSize(new Dimension(480, 662));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBackground(Color.red);

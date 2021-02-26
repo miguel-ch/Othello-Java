@@ -56,6 +56,7 @@ public class JuegoPanel extends JPanel implements SwingComponente {
 		estado.setFont(new Font("Trebuchet MS", Font.PLAIN, 12));
 
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		setBackground(Color.black);
 
 		// Añade los componentes
 		add(jugadores.getComponente());
