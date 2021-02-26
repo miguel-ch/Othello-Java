@@ -149,6 +149,7 @@ public class Othello {
 
 	// Reinicia el juego
 	public void reiniciar() {
+		this.jugadorActual = jugNegras;
 		this.tablero.limpiar();
 		this.jugNegras.limpiarInformacion();
 		this.jugBlancas.limpiarInformacion();
